@@ -1,0 +1,27 @@
+h1 {
+    background-color: cornflowerblue;
+    text-align: center;
+}
+
+button {
+    width: 17px;
+    height: 17px;
+    border-radius: 0%;
+    border: 1px solid black;
+    margin: 0px;
+    padding: 0px;
+    background-color: blanchedalmond;
+    vertical-align: middle;
+}
+
+#picture {
+    display: flex;
+    flex-direction: column;
+    line-height: 0px;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
