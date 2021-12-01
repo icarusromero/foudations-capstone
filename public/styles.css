@@ -31,3 +31,11 @@ p {
     padding: 0px;
     border: 0px;
 }
+
+#colors {
+    border: 3px solid rgb(97, 23, 1);
+}
+
+form {
+    margin-bottom: 5px;
+}

@@ -8,10 +8,9 @@ app.use(cors());
 
 app.use(express.json());
 
-app.get(`http://localhost:5463/api/picselect`, (req, res) => {
+app.get('/api/picselect', (req, res) => {
     console.log(pictures)
     res.status(200).send(pictures)
 })
 
-
-app.listen(5463, () => console.log("Server running on 5463"));
+app.listen(5000, () => console.log("Server running on 5000"));
