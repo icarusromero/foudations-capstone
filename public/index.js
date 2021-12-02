@@ -1,11 +1,24 @@
 
 const pictureContainer = document.getElementById('picture')
-
+let colorKey = document.getElementById('color-key')
 const submitbtn = document.getElementById("submit")
+
+const initClrGuide = () => {
+    let i = 0
+            while(i < 20){
+                clrBtn = document.createElement('button')
+                clrBtn.setAttribute('class', 'color-button')
+                clrBtn.setAttribute('id', `color${i + 1}`)
+                clrBtn.style.background = 'blanchedalmond'
+                clrBtn.innerHTML = `N/A`
+                colorKey.appendChild(clrBtn)
+                i++
+            } 
+}
+initClrGuide()
 
 submitbtn.addEventListener('click', (e) => {
     e.preventDefault()
-    console.log('string hit')
     axios.get('http://localhost:5000/api/picselect').then(function (response) {
         const pictures = response.data
 
@@ -21,42 +34,49 @@ submitbtn.addEventListener('click', (e) => {
 
         pictureContainer.innerHTML = ``
         const { rows } = pic
-        console.log(rows)
         rowNum = 1
         rows.forEach(arr => {
-            console.log(arr)
             const row = document.createElement('p')
             row.setAttribute('id', `row${rowNum}`)
             row.setAttribute('class', `row`)
-            console.log(row)
             arr.forEach(item => {
                 const btn = document.createElement('button')
+                btn.setAttribute('class', 'pixel')
                 btn.innerHTML = `${item}`
                 row.appendChild(btn)
             })
             pictureContainer.appendChild(row)
             rowNum++
         });
+
+        // colorKey.innerHTML = ``
+        // let i = 0
+        //     while(i < 20){
+        //         clrBtn = document.createElement('button')
+        //         clrBtn.setAttribute('class', 'color-button')
+        //         clrBtn.setAttribute('id', `color${i + 1}`)
+        //         clrBtn.style.background = 'blanchedalmond'
+        //         clrBtn.innerHTML = `N/A`
+        //         colorKey.appendChild(clrBtn)
+        //         i++
+        //     } 
+
+        const { colors } = pic
+
+        let x = 0
+        while(x < colors.length){
+            let btnToChange = document.getElementById(`color${x + 1}`)
+            btnToChange.style.background = colors[x]
+            btnToChange.value = colors[x]
+            btnToChange.innerHTML = ``
+            x++
+        }
     })
 })
 
-// const createPicture = picture => {
-//     const { rows } = picture
-//     rowNum = 1
-//     rows.forEach(row => {
-//         const row = document.createElement('p').className(`row${rowNum}`)
-//         row.forEach(btn => {
-//             const btn = document.createElement('button')
-//             row.appendChild(btn)
-//         })
-//         pictureContainer.appendChild(row)
-//         rowNum++
-//     });
-// }
-
-// function displayPicture() {
-//     pictureContainer.innerHTML = ``
-    
-// }
-
-// form.addEventListener('submit', displayPicture)
+let pickedClr = ''
+const color1 = document.getElementById('color1')
+color1.addEventListener('click', () => {
+    pickedClr = color1.value
+    console.log(pickedClr)
+})

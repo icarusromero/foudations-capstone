@@ -3,7 +3,7 @@ h1 {
     text-align: center;
 }
 
-button {
+.pixel {
     width: 17px;
     height: 17px;
     border-radius: 0%;
@@ -14,28 +14,27 @@ button {
     vertical-align: middle;
 }
 
-#submit {
-    width: auto;
-    height: auto;
-    padding: 2px;
-}
-
 #picture {
     display: flex;
     flex-direction: column;
     line-height: 0px;
 }
 
-p {
+.row {
     margin: 0px;
     padding: 0px;
     border: 0px;
 }
 
-#colors {
+#color-guide {
     border: 3px solid rgb(97, 23, 1);
 }
 
 form {
     margin-bottom: 5px;
+}
+
+.color-button {
+    width: 35px;
+    height: 35px;
 }
