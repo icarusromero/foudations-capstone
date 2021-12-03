@@ -4,6 +4,7 @@ let id = 4
 const pictureContainer = document.getElementById('picture')
 let colorKey = document.getElementById('color-key')
 const submitbtn = document.getElementById("submit")
+const dltBtn = document.getElementById('delete-pic')
 const createBtn = document.getElementById('create-your-own-btn')
 const clringSec = document.getElementById('coloring-section')
 const picSelect = document.getElementById('picture-selector')
@@ -225,6 +226,7 @@ createBtn.addEventListener('click', () => {
             let newPicName = res.data
             let newOption = document.createElement('option')
             newOption.setAttribute('value', `${newPicName}`)
+            newOption.setAttribute('id', `${id}`)
             newOption.innerHTML = `${newPicName}`
             picSelect.appendChild(newOption)
 
@@ -238,4 +240,23 @@ createBtn.addEventListener('click', () => {
         colorKey.innerHTML = ``
         initClrGuide()
     })
+
 })
+
+dltBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    let selection = document.querySelector('select');
+    let id = selection.options[selection.selectedIndex].id;
+    console.log(id)
+    let toDlt = document.getElementById(`${id}`)
+    
+    axios.delete('http://localhost:5000/api/delete/:id', id)
+    .then((res) => {
+        toDlt.remove()
+        pictureContainer.innerHTML = ``
+        alert(res.data)
+    })
+
+    
+ })
