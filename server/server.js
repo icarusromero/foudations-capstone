@@ -9,7 +9,6 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/api/picselect', (req, res) => {
-    console.log(pictures)
     res.status(200).send(pictures)
 })
 
@@ -28,7 +27,9 @@ app.post('/api/save-pic', (req, res) => {
 app.delete('/api/delete/:id', (req, res) => {
     for(let i = 0; i < pictures.length; i++){
         let {id} = pictures[i]
+        
         if(id = req){
+            console.log(pictures[i])
             pictures.splice(id, 1)
         }
     }

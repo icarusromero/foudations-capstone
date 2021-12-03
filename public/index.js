@@ -1,5 +1,5 @@
 
-let id = 4
+let id = 2
 
 const pictureContainer = document.getElementById('picture')
 let colorKey = document.getElementById('color-key')
@@ -50,7 +50,7 @@ submitbtn.addEventListener('click', (e) => {
     axios.get('http://localhost:5000/api/picselect')
     .then(function (response) {
         const pictures = response.data
-
+        debugger
         let selection = document.querySelector('select');
         let name = selection.options[selection.selectedIndex].value;
 
@@ -248,9 +248,9 @@ dltBtn.addEventListener('click', (e) => {
 
     let selection = document.querySelector('select');
     let id = selection.options[selection.selectedIndex].id;
-    console.log(id)
-    let toDlt = document.getElementById(`${id}`)
     
+    let toDlt = document.getElementById(`${id}`)
+
     axios.delete('http://localhost:5000/api/delete/:id', id)
     .then((res) => {
         toDlt.remove()
