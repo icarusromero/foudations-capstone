@@ -9,17 +9,24 @@
 </head>
 <body>
     <h1>Color By Number</h1>
+    <div id="options">
+        <form>
+            <select id="picture-selector">
+                <option value="test">test</option>
+                <option value="gnome">gnome</option>
+            </select>
+            <button id="submit">submit</button>
+        </form>    
+        <button id="create-your-own-btn">Create Your Own!</button>
+    </div>
 
-    <form>
-        <select id="picture selector">
-            <option value="test">test</option>
-        </select>
-        <button id="submit">submit</button>
-    </form>    
 
-    <div id="fun area">
-        <div id="picture">
+    <div id="fun-area">
+        <div id="coloring-section">
+            <div id="picture">
 
+            </div>
+            <div id="name-and-save"></div>
         </div>
     
         <div id="color-guide">
@@ -28,7 +35,9 @@
                 
             </div>
         </div>
+        
     </div>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="index.js"></script>
 </body>

@@ -1,36 +1,53 @@
 
+let id = 4
+
 const pictureContainer = document.getElementById('picture')
 let colorKey = document.getElementById('color-key')
 const submitbtn = document.getElementById("submit")
+const createBtn = document.getElementById('create-your-own-btn')
+const clringSec = document.getElementById('coloring-section')
+const picSelect = document.getElementById('picture-selector')
+let nameAndSave = document.getElementById('name-and-save')
 let pickedClr = ''
 
 const initClrGuide = () => {
     let i = 0
+    let colorsSide = document.createElement('div')
+    colorsSide.setAttribute('id', 'colors-side')
+    let numsSide = document.createElement('div')
+    numsSide.setAttribute('id', 'numbers-side')
     
     while(i < 20){
-        clrBtn = document.createElement('button')
+        let clrBtn = document.createElement('button')
         clrBtn.setAttribute('class', 'color-button')
         clrBtn.setAttribute('id', `color${i + 1}`)
         clrBtn.style.background = 'blanchedalmond'
         clrBtn.innerHTML = `N/A`
-        colorKey.appendChild(clrBtn)
+        clrBtn.addEventListener('click', () => {
+            pickedClr = clrBtn.value
+        })
+        colorsSide.appendChild(clrBtn)
         i++
     }
-    let clrBtns = document.getElementsByClassName('color-button')
-    for(let i = 0; clrBtns.length; i++){
-        console.log(clrBtns[`${i}`])
-        console.log(clrBtns)
-        
-        // btn.addEventListener('click', () => {
-        //     pickedClr = color1.value
-        // })
+
+    let x = 1
+    while(x < 21){
+        let numbr = document.createElement('p')
+        numbr.setAttribute('class', 'numbers')
+        numbr.innerHTML = `= ${x}`
+        numsSide.appendChild(numbr)
+        x++
     }
+    
+    colorKey.appendChild(colorsSide)
+    colorKey.appendChild(numsSide)
 }
 initClrGuide()
 
 submitbtn.addEventListener('click', (e) => {
     e.preventDefault()
-    axios.get('http://localhost:5000/api/picselect').then(function (response) {
+    axios.get('http://localhost:5000/api/picselect')
+    .then(function (response) {
         const pictures = response.data
 
         let selection = document.querySelector('select');
@@ -44,6 +61,7 @@ submitbtn.addEventListener('click', (e) => {
         }
 
         pictureContainer.innerHTML = ``
+
         const { rows } = pic
         rowNum = 1
         rows.forEach(arr => {
@@ -54,6 +72,9 @@ submitbtn.addEventListener('click', (e) => {
                 const btn = document.createElement('button')
                 btn.setAttribute('class', 'pixel')
                 btn.innerHTML = `${item}`
+                btn.addEventListener('click', () => {
+                    btn.style.background = pickedClr
+                })
                 row.appendChild(btn)
             })
             pictureContainer.appendChild(row)
@@ -73,86 +94,148 @@ submitbtn.addEventListener('click', (e) => {
     })
 })
 
-// let pickedClr = ''
+createBtn.addEventListener('click', () => {
+    pictureContainer.innerHTML = ``
+    let rowNum = 1
+    let addRowBtn = document.createElement('button')
+
+    nameAndSave.innerHTML = `<input id="name-input" placeholder="Pic Name">
+    <button id="save-btn">Save</button>`
+
+    let nameInput = document.getElementById('name-input')
+    let saveBtn = document.getElementById('save-btn')
+
+    addRowBtn.setAttribute('id', 'add-row-btn')
+    addRowBtn.innerHTML = 'Add Row'
+    pictureContainer.appendChild(addRowBtn)
+
+    let colorsSide = document.getElementById('colors-side')
+    colorsSide.innerHTML = ``
+
+    let i = 0
+    while(i < 20){
+        let clrBtn = document.createElement('input')
+        clrBtn.setAttribute('class', 'color-button')
+        clrBtn.setAttribute('id', `color${i + 1}`)
+        clrBtn.style.background = 'blanchedalmond'
+        clrBtn.setAttribute('placeholder', '#000000')
+        colorsSide.appendChild(clrBtn)
+        i++
+    }
+
+    addRowBtn.addEventListener('click', () => {
+        let row = document.createElement('p')
+        row.setAttribute('id', `row${rowNum}`)
+        row.setAttribute('class', 'row')
+
+        let addPixelBtn = document.createElement('button')
+        addPixelBtn.setAttribute('id', `row${rowNum}-add-pixel-btn`)
+        addPixelBtn.setAttribute('class', 'add-pixel')
+        addPixelBtn.innerHTML = '+'
+        
+        let deletePxBtn = document.createElement('button')
+        deletePxBtn.setAttribute('id',`row${rowNum}-delete-pixel-btn`)
+        deletePxBtn.setAttribute('value', `row${rowNum}`)
+        deletePxBtn.setAttribute('class', `delete-pixel`)
+        deletePxBtn.innerHTML = '-'
 
 
-// const color1 = document.getElementById('color1')
-// color1.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color2= document.getElementById('color2')
-// color2.addEventListener('click', () => {
-//     pickedClr = color2.value
-// })
-// const color3 = document.getElementById('color3')
-// color3.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color4 = document.getElementById('color4')
-// color4.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color5 = document.getElementById('color5')
-// color5.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color6= document.getElementById('color6')
-// color6.addEventListener('click', () => {
-//     pickedClr = color2.value
-// })
-// const color7 = document.getElementById('color7')
-// color7.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color8 = document.getElementById('color8')
-// color8.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color9 = document.getElementById('color9')
-// color9.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color10 = document.getElementById('color10')
-// color10.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color11 = document.getElementById('color11')
-// color11.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color12= document.getElementById('color12')
-// color12.addEventListener('click', () => {
-//     pickedClr = color2.value
-// })
-// const color13 = document.getElementById('color13')
-// color13.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color14 = document.getElementById('color14')
-// color14.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color15 = document.getElementById('color15')
-// color15.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color16= document.getElementById('color16')
-// color16.addEventListener('click', () => {
-//     pickedClr = color2.value
-// })
-// const color17 = document.getElementById('color17')
-// color17.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color18 = document.getElementById('color18')
-// color18.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color19 = document.getElementById('color19')
-// color19.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
-// const color20 = document.getElementById('color20')
-// color20.addEventListener('click', () => {
-//     pickedClr = color1.value
-// })
+        row.appendChild(addPixelBtn)
+        row.appendChild(deletePxBtn)
+        pictureContainer.appendChild(row)
+        let pixelNum = 1
+
+        rowNum++
+
+        addPixelBtn.addEventListener('click', () => {
+            let thisRowNum = row.id
+            const pixel = document.createElement('input')
+            pixel.setAttribute('class', 'pixel')
+            pixel.setAttribute('id', `${thisRowNum}-${pixelNum}`)
+
+            row.appendChild(pixel)
+            pixelNum++
+        })
+
+        deletePxBtn.addEventListener('click', () => {
+            
+            let rowNum = deletePxBtn.value
+            let p = document.getElementById(`${rowNum}`)
+            let pxNum = p.childElementCount - 2
+            let pixel = document.getElementById(`${rowNum}-${pxNum}`)
+            pixel.remove()
+
+        })
+    })
+
+
+
+    saveBtn = document.getElementById('save-btn')
+    saveBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        let x = 0
+        let length = pictureContainer.childElementCount - 1
+        while(x < length){
+            let addBtn = document.getElementById(`row${x + 1}-add-pixel-btn`)
+            let dltBtn = document.getElementById(`row${x + 1}-delete-pixel-btn`)
+            addBtn.remove()
+            dltBtn.remove()
+            x++
+        }
+        let addRowBtn = document.getElementById('add-row-btn')
+        addRowBtn.remove()
+
+            id++
+            let rows = []
+            let rowCount = pictureContainer.childElementCount
+
+            for(let i = 0; i < rowCount; i++){
+                let pixels = []
+                let row = document.getElementById(`row${i + 1}`)
+                let pixelCount = row.childElementCount
+                for(let x = 0; x < pixelCount; x++){
+                    let pixel = document.getElementById(`row${i + 1}-${x + 1}`)
+                    pixels.push(pixel.value)
+                }
+                rows.push(pixels)
+            }
+
+            let colorsSide = document.getElementById('colors-side')
+            let clrList = []
+            let clrs = colorsSide.childElementCount
+
+            for(let r = 0; r < clrs; r++){
+                let clr = document.getElementById(`color${r + 1}`)
+                if(clr.value !== ''){
+                    let colorLC = clr.value.toLowerCase()
+                    clrList.push(colorLC)
+                }
+            }
+
+            const body = {
+                id: id,
+                name: nameInput.value,
+                rows: rows,
+                colors: clrList
+            }
+            
+
+        axios.post(`http://localhost:5000/api/save-pic`, body)
+        .then( (res) => {
+            let newPicName = res.data
+            let newOption = document.createElement('option')
+            newOption.setAttribute('value', `${newPicName}`)
+            newOption.innerHTML = `${newPicName}`
+            picSelect.appendChild(newOption)
+
+            
+        })
+
+        nameInput.remove()
+        saveBtn.remove()
+        pictureContainer.innerHTML = ``
+
+        colorKey.innerHTML = ``
+        initClrGuide()
+    })
+})

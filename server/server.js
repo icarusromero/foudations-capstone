@@ -13,4 +13,16 @@ app.get('/api/picselect', (req, res) => {
     res.status(200).send(pictures)
 })
 
+app.post('/api/save-pic', (req, res) => {
+    const {id, name, rows, colors} = req.body
+    let newPicture = {
+        id,
+        name,
+        rows,
+        colors
+    }
+    pictures.push(newPicture)
+    res.status(200).send(name)
+})
+
 app.listen(5000, () => console.log("Server running on 5000"));
