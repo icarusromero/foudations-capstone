@@ -248,9 +248,10 @@ dltBtn.addEventListener('click', (e) => {
 
     let selection = document.querySelector('select');
     let thisId = selection.options[selection.selectedIndex].id;
+    console.log(thisId)
     
     let toDlt = document.getElementById(`${thisId}`)
-    console.log(toDlt)
+    // console.log(toDlt)
     axios.delete('http://localhost:5000/api/delete/:id', thisId)
     .then((res) => {
         toDlt.remove()
