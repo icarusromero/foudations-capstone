@@ -1,5 +1,5 @@
 
-let id = 2
+let globalId = 2
 
 const pictureContainer = document.getElementById('picture')
 let colorKey = document.getElementById('color-key')
@@ -49,8 +49,9 @@ submitbtn.addEventListener('click', (e) => {
     e.preventDefault()
     axios.get('http://localhost:5000/api/picselect')
     .then(function (response) {
-        const pictures = response.data
-        debugger
+        let pictures = response.data
+        console.log(pictures)
+        
         let selection = document.querySelector('select');
         let name = selection.options[selection.selectedIndex].value;
 
@@ -171,7 +172,6 @@ createBtn.addEventListener('click', () => {
 
 
 
-    saveBtn = document.getElementById('save-btn')
     saveBtn.addEventListener('click', (e) => {
         e.preventDefault()
         let x = 0
@@ -183,23 +183,23 @@ createBtn.addEventListener('click', () => {
             dltBtn.remove()
             x++
         }
-        let addRowBtn = document.getElementById('add-row-btn')
+        // let addRowBtn = document.getElementById('add-row-btn')
         addRowBtn.remove()
 
-            id++
-            let rows = []
-            let rowCount = pictureContainer.childElementCount
+        globalId++
+        let rows = []
+        let rowCount = pictureContainer.childElementCount
 
-            for(let i = 0; i < rowCount; i++){
-                let pixels = []
-                let row = document.getElementById(`row${i + 1}`)
-                let pixelCount = row.childElementCount
-                for(let x = 0; x < pixelCount; x++){
-                    let pixel = document.getElementById(`row${i + 1}-${x + 1}`)
-                    pixels.push(pixel.value)
-                }
-                rows.push(pixels)
+        for(let i = 0; i < rowCount; i++){
+            let pixels = []
+            let row = document.getElementById(`row${i + 1}`)
+            let pixelCount = row.childElementCount
+            for(let x = 0; x < pixelCount; x++){
+                let pixel = document.getElementById(`row${i + 1}-${x + 1}`)
+                pixels.push(pixel.value)
             }
+            rows.push(pixels)
+        }
 
             let colorsSide = document.getElementById('colors-side')
             let clrList = []
@@ -214,7 +214,7 @@ createBtn.addEventListener('click', () => {
             }
 
             const body = {
-                id: id,
+                id: globalId,
                 name: nameInput.value,
                 rows: rows,
                 colors: clrList
@@ -226,7 +226,7 @@ createBtn.addEventListener('click', () => {
             let newPicName = res.data
             let newOption = document.createElement('option')
             newOption.setAttribute('value', `${newPicName}`)
-            newOption.setAttribute('id', `${id}`)
+            newOption.setAttribute('id', `${globalId}`)
             newOption.innerHTML = `${newPicName}`
             picSelect.appendChild(newOption)
 
@@ -247,11 +247,11 @@ dltBtn.addEventListener('click', (e) => {
     e.preventDefault()
 
     let selection = document.querySelector('select');
-    let id = selection.options[selection.selectedIndex].id;
+    let thisId = selection.options[selection.selectedIndex].id;
     
-    let toDlt = document.getElementById(`${id}`)
-
-    axios.delete('http://localhost:5000/api/delete/:id', id)
+    let toDlt = document.getElementById(`${thisId}`)
+    console.log(toDlt)
+    axios.delete('http://localhost:5000/api/delete/:id', thisId)
     .then((res) => {
         toDlt.remove()
         pictureContainer.innerHTML = ``

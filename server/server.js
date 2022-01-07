@@ -29,7 +29,6 @@ app.delete('/api/delete/:id', (req, res) => {
         let {id} = pictures[i]
         
         if(id = req){
-            console.log(pictures[i])
             pictures.splice(id, 1)
         }
     }
