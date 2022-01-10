@@ -12,6 +12,8 @@ let nameAndSave = document.getElementById('name-and-save')
 let pickedClr = ''
 
 const initClrGuide = () => {
+    colorKey.innerHTML = ``
+
     let i = 0
     let colorsSide = document.createElement('div')
     colorsSide.setAttribute('id', 'colors-side')
@@ -85,6 +87,7 @@ submitbtn.addEventListener('click', (e) => {
 
         const { colors } = pic
 
+        initClrGuide()
         let x = 0
         while(x < colors.length){
             let btnToChange = document.getElementById(`color${x + 1}`)
